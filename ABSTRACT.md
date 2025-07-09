@@ -18,7 +18,7 @@ Echter... dat kan niet. Want de structuur wordt bepaald door andere html element
 
 * Zet de json bij het laden van de pagina niet in een hidden input field, maar:
   * Direct in de data() method van Vue.
-  * Of in een html data-... property, als je dat fijner vindt.
+  * Het kan niet in de hidden input, zelfs niet in een data-attribuut, want die is nog niet beschikbaar op het moment van toekennen.
 * Gebruik v-model voor de formulier elementen waarmee de bezoeker de data structuur kan manipuleren zoals je dat gewend bent.
   * Sla de `name` property over, je wilt deze niet mee sturen in de formdata.
 * Gebruik een computed property om de data structuur on de fly te converteren naar json
