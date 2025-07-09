@@ -23,3 +23,7 @@ Als je een wijziging doet in de .env moet je het setup commando opnieuw uitvoere
 ## Wat je je doen?
 
 Je kunt de `vueforms` django app uitbreiden met formulieren die vue inzetten om ingewikkelde data-structuren aan te passen.
+
+## Wat is al berijkt?
+
+Zie de [ABSTRACT.md](ABSTRACT.md) voor een uiteenzetting van wat met dit project is gevonden.
