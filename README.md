@@ -3,13 +3,18 @@ Hoe werkt het nou precies?
 
 Vue kan worden gebruikt om ingewikkelde, geneste, formulieren te maken in Django. De gewone componenten zijn aardig voor platte formulieren. Maar als er herhaling in zit van een object met meerdere velden per regel is het handig om een framework in te schakelen.
 
-Het probleem zit in het doorgeven van gegevens van Django aan vue, en het versturen van de gegevens terug naar Django. De formdata kan ook niet zo heel goed omgaan met geneste gegevens.
+### De situatie
 
-Je zou eigenlijk met json heen en weer willen slepen. Een hidden input veld kan de drager zijn van de json data. Vue leest het uit het hidden input field en schrijft het resultaat daar weer in terug.
+We zouden graag gegevens door willen geven van Django aan vue, en de wijzigingen ontvangen via formdata.
+
+Omdat formdata niet zo goed is in geneste structuren zouden we json willen inzetten. Dat kan werken met een hidden input veld als gegevensdrager. Vue leest het uit het hidden input field en schrijft het resultaat daar weer in terug.
+
+### Het probleem
 
 Echter... dat kan niet. Want de structuur wordt bepaald door andere html elementen. Die maken gebruik van v-model. En er kan maar 1 v-model op een data structuur staan.
 
-Oplossing:
+### Oplossing
+
 
 * Zet de json bij het laden van de pagina niet in een hidden input field, maar:
   * Direct in de data() method van Vue.
