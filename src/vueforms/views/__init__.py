@@ -1,0 +1,1 @@
+from .intelligent_search import SettingsView as IntelligentSearchSettingsView

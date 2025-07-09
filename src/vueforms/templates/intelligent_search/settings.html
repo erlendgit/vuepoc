@@ -1,0 +1,152 @@
+{% extends "page.html" %}
+
+{% load vueforms %}
+{% load custom %}
+{% load core %}
+{% load i18n %}
+
+{% block page_content %}
+    <h1>Intelligent search settings</h1>
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    <li>
+                        <strong>{{ field|capfirst }}:</strong>
+                        {% for error in errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <div class="card">
+        <h5 class="card-header">
+            Update intelligent search settings
+        </h5>
+        <div class="card-body">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="mb-2">
+                    <label for="id_name" class="form-label">{{ form.name.label }}</label>
+                    <input type="text" class="form-control" id="id_name" name="name"
+                           value="{{ form.name.value|default_if_none:'' }}" required>
+                </div>
+                <div class="mb-2">
+                    <label for="id_url" class="form-label">{{ form.url.label }}</label>
+                    <input type="url" class="form-control" id="id_url" name="url"
+                           value="{{ form.url.value|default_if_none:'' }}" required>
+                </div>
+                <div class="mb-2">
+                    <label for="id_shared_secret" class="form-label">{{ form.shared_secret.label }}</label>
+                    <input type="text" class="form-control" id="id_shared_secret" name="shared_secret"
+                           value="{{ form.shared_secret.value|default_if_none:'' }}" required>
+                </div>
+                <div class="mb-2" id="index_setup_vue">
+                    {% load_site_groups_for_select as all_groups %}
+                    <h5>Index settings</h5>
+                    <input type="hidden" id="id_index_setup" name="index_setup" :value="computedIndexSetup">
+                    <div class="mb-2" v-for="(indexData, index) in indexSetup" :key="index"
+                         v-show="!indexData?.isArchived">
+                        <input type="hidden"
+                               :id="`index_setup__${index}__is_archived`"
+                               v-model="indexSetup[index].isArchived">
+
+                        <select :id="`index_setup__${index}__guid`"
+                                v-model="indexSetup[index].groupGuid"
+                                class="form-select">
+                            <option value="__nongroup__">
+                                {% trans "Non group content" %}
+                            </option>
+                            <option value="__allsite__">
+                                {% trans "All site content" %}
+                            </option>
+                            {% for id, name in all_groups %}
+                                <option value="{{ id }}">
+                                    {% blocktrans %}
+                                        Group: {{ name }}
+                                    {% endblocktrans %}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <div class="mt-2"><strong>Content types</strong></div>
+                        <div class="row px-3">
+                            <div v-for="(contentType, ctypeIndex) in allContentTypes" :key="ctypeIndex"
+                                 class="form-check col-4">
+                                <input type="checkbox"
+                                       :id="`index_setup__${index}__content_types__${ctypeIndex}`"
+                                       v-model="indexSetup[index].contentTypes[contentType]"
+                                       class="form-check-input">
+                                <label :for="`index_setup__${index}__content_types__${ctypeIndex}`"
+                                       class="form-check-label">
+                                    ({ contentType })
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex justify-content-end mt-2">
+                            <button class="btn btn-warning btn-sm"
+                                    @click.prevent="remove_setting(index)">{% trans "Remove setting" %}</button>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-success"
+                                @click.prevent="add_setting">
+                            {% trans "Add setting" %}
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary" type="submit">
+                        Opslaan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <script src="{% vue_url %}"></script>
+    <script>
+        const {createApp, ref} = Vue
+        const options = {
+            delimiters: ['({', '})'],
+            setup() {
+            },
+            computed: {
+                computedIndexSetup() {
+                    return JSON.stringify(this.indexSetup);
+                }
+            },
+            data() {
+                const data = {
+                    indexSetup: JSON.parse({{ form.index_setup.value|as_json_string|safe }}) || [],
+                    allContentTypes: JSON.parse('{% load_site_content_types_json %}'),
+                }
+                console.log(data)
+                return data
+            },
+            methods: {
+                add_setting() {
+                    this.indexSetup.push({
+                        groupGuid: '',
+                        contentTypes: {},
+                        isArchived: false,
+                    })
+                },
+                remove_setting(index) {
+                    this.indexSetup[index].isArchived = true;
+                }
+            },
+            mounted() {
+                console.log("Lets go");
+            }
+        };
+        const app = createApp(options)
+        app.mount('#index_setup_vue');
+    </script>
+
+{% endblock %}
