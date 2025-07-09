@@ -18,12 +18,12 @@ $ . bin/dev-setup.sh
 
 Dit commando kan je iedere keer uitvoeren als je een terminal opent. Het script zorgt er voor dat de venv geladen wordt en klaar is om te gebruiken.
 
-Als je een wijziging doet in de .env moet je het setup commando opnieuw uitvoeren zoals hier beschreven.
+Als je een wijziging doet in de .env of de requirements.txt moet je het setup commando opnieuw uitvoeren zoals hier beschreven.
 
 ## Wat je je doen?
 
 Je kunt de `vueforms` django app uitbreiden met formulieren die vue inzetten om ingewikkelde data-structuren aan te passen.
 
-## Wat is al berijkt?
+## Wat is al bereikt?
 
 Zie de [ABSTRACT.md](ABSTRACT.md) voor een uiteenzetting van wat met dit project is gevonden.
