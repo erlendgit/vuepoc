@@ -1,25 +1,27 @@
-Hoe werkt het nou precies?
-===
-
-Vue kan worden gebruikt om ingewikkelde, geneste, formulieren te maken in Django. De gewone componenten zijn aardig voor platte formulieren. Maar als er herhaling in zit van een object met meerdere velden per regel is het handig om een framework in te schakelen.
-
-### De situatie
-
-We zouden graag gegevens door willen geven van Django aan vue, en de wijzigingen ontvangen via formdata.
-
-Omdat formdata niet zo goed is in geneste structuren zouden we json willen inzetten. Dat kan werken met een hidden input veld als gegevensdrager. Vue leest het uit het hidden input field en schrijft het resultaat daar weer in terug.
-
-### Het probleem
-
-Echter... dat kan niet. Want de structuur wordt bepaald door andere html elementen. Die maken gebruik van v-model. En er kan maar 1 v-model op een data structuur staan.
-
-### Oplossing
+# Vue POC
 
 
-* Zet de json bij het laden van de pagina niet in een hidden input field, maar:
-  * Direct in de data() method van Vue.
-  * Of in een html data-... property, als je dat fijner vindt.
-* Gebruik v-model voor de formulier elementen waarmee de bezoeker de data structuur kan manipuleren zoals je dat gewend bent.
-  * Sla de `name` property over, je wilt deze niet mee sturen in de formdata.
-* Gebruik een computed property om de data structuur on de fly te converteren naar json
-* Stel de hidden input zo in dat ie deze computed property volgt met een `:value` binding.
+Proof of concept voor Vue in Django.
+
+## Opstarten
+
+1. Maak een kopie van .env-example naar .env
+2. Installeer de pakketjes met `bin/dev-setup.sh`; zie instructies verderop.
+3. Start de server met `bin/manage.py runserver`
+
+### Hoe gebruik je `dev-setup.sh`
+
+```bash
+# Merk op dat dit commando begint met een punt en een spatie.
+# Op die manier sta je toe dat het script de actieve shell aanpast.
+$ . bin/dev-setup.sh
+```
+
+Dit commando kan je iedere keer uitvoeren als je een terminal opent. Het script zorgt er voor dat de venv geladen wordt en klaar is om te gebruiken.
+
+Als je een wijziging doet in de .env moet je het setup commando opnieuw uitvoeren zoals hier beschreven.
+
+
+## Wat je je doen?
+
+Je kunt de `vueforms` django app uitbreiden met formulieren die vue inzetten om ingewikkelde data-structuren aan te passen.
