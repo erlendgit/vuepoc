@@ -1,6 +1,5 @@
 # Vue POC
 
-
 Proof of concept voor Vue in Django.
 
 ## Opstarten
@@ -20,7 +19,6 @@ $ . bin/dev-setup.sh
 Dit commando kan je iedere keer uitvoeren als je een terminal opent. Het script zorgt er voor dat de venv geladen wordt en klaar is om te gebruiken.
 
 Als je een wijziging doet in de .env moet je het setup commando opnieuw uitvoeren zoals hier beschreven.
-
 
 ## Wat je je doen?
 

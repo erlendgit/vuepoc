@@ -11,4 +11,5 @@ def vue_url():
 @register.filter
 def as_json_string(value):
     import json
+
     return json.dumps(value, ensure_ascii=False)

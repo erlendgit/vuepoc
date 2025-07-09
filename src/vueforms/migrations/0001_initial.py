@@ -4,21 +4,27 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='IntelligentSearchSetup',
+            name="IntelligentSearchSetup",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, unique=True)),
-                ('url', models.CharField(max_length=255, unique=True)),
-                ('shared_secret', models.CharField(max_length=128)),
-                ('index_setup', models.JSONField(blank=True, null=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=255, unique=True)),
+                ("url", models.CharField(max_length=255, unique=True)),
+                ("shared_secret", models.CharField(max_length=128)),
+                ("index_setup", models.JSONField(blank=True, null=True)),
             ],
         ),
     ]
