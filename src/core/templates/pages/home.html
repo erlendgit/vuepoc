@@ -1,0 +1,27 @@
+{% extends 'page.html' %}
+
+{% block head_title %}
+    {{ block.super }} | Home
+{% endblock %}
+
+
+{% block page_content %}
+    <div class="row mt-3">
+        <div class="col">
+            <h1>Welcome home!</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <h5 class="card-header">
+                    Home Page
+                </h5>
+                <div class="card-body">
+
+                    <p>This is a simple home page for the application.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
